@@ -262,9 +262,25 @@ As usual $h(T)$,  the height of $T$  denote the number of edges from the root of
 \i warm-up
 \begin{enumerate}
     \item show that the height of $T$ is $\Theta(n).$
+\\\ans{Since it is given that the keys are inserted in increasing order from $1-n$, this means that for every insert, the current key we are trying to insert is greater than the previous key
+	that was inserted, therefore, every key inserted would forcefully end up being the right node of the previous key inserted and our tree height would grow by $1$ for every insert,
+	turning our tree into what is essencially a list. Therefore, the tree height of  $T$ is $\Theta(n).$}
     \i Show that the time to perform all $n$ insertions is $\Theta(n^2)$
+\\\ans{If we imagine the tree as a list again as in the previous answer, we can also assume the properties of a list when inserting into this tree given that every $k_i = i for$ $i = 1, 2\dots n$
+\\ This means that the insert operation in this tree takes $\Theta(n)$ since we are always inserting at the end of our imagined list.
+\\ We can therefore write a function $g(n)$ that represents all insert operations in this tree and write it as the summation:
+\\  $g(n)=\sum_{k_i=  1} ^n \Theta(n)$ which is the same as $g(n) = \Theta(n^2)$}
     \i next we insert the same keys into $T$ but we could pick different permutations.  Show that there is an order for which the time to perform all insertions is $O(n\log n)$
-
+\\\ans{First, we need to use the assumption that the keys are given in the order from $1, 2, ... n$(A sorted order) to our advantage.
+\\ This means that BEFORE we pick any keys to insert, we have an array of numbers going from $1, 2... n$
+\\ Using this fact about the numbers, we can perform a binary search style search on the keys to grab the middle element of each of the partitions of each binary search step.
+\\ This can be done because binary search splits the given array into 2 partitions using the middle element, yielding two partitions such that every element in the left partition is smaller
+than the middle element and every element in the right partition is bigger than the middle element.
+\\ This is important because if we were to choose such middle elements until all elements in the initially sorted array are chosen, then inserting these middle elements while keeping the order
+in which they were selected into the binary search tree would create a tree of height $log(n)$ because every key chosen would have a left and a right child if there were at least 3 elements
+in each sub-partition array.
+\\ By picking the middle element in each sub-partition array, we force all elements smaller than it to the left and all elements bigger than it to the right and repeat the process for every element. This should split the tree into 2 subtrees and we do this $n$ times for all elements, therefore, each insertion takes maximum $log(n)$ or $O(log n)$ and we have $n$ insertions, to
+perform, yielding a total of $O(n log n)$ time to perform all insertions.}
     \i  During the process of constructing the tree, we define random variable $Y_{ij}$ to be 1 iff the keys $i$ and $j$ were compared to each other. (For every $1\leq i, j\leq n.$)
     Otherwise $Y_{ij}=0.$ Show that the work to construct the tree is proportional to
     $$\sum_{1\leq i,j\leq n} Y_{ij}.$$
