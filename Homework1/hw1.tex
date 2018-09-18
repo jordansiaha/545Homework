@@ -325,8 +325,14 @@ perform, yielding a total of $O(n log n)$ time to perform all insertions.}
 
 
 Hint: Start by  storing  at each node $v$ of the SL another field, called {\sl size}$[v]$, containing the number of keys in the SL between $v$ and the next node at the same level as $v$. Note that maintaining the values of these fields might imply extra work while performing other operations.
-
-
+\\\ans{The key to solving this problem lies in adding extra operations to the {\tt insert$(x)$} operation that won't add to the total time complexity.
+\\ Firstly, for every insert, we need to store in that node the field $v$ as suggested in the hint, and this operation would have a run time of $O(1)$ because all we'd need to do is
+before we insert any node, we check if the current node's next pointer is greater than the node we want to insert, if it is, then we increment its $v$ count by 1, and if not, we go right
+if possible and down if not. Once a node is inserted, if it is to be bubbled up to the next level up, then we simply check the previous node on the next level up and its next node, then subtract 1 from the previous one's v and add that to the current one's v, this is also a $O(1)$ operation.
+\\ We also need to add a $sum$ value to each node after insertion to keep track of the sum of every number less than the node we are trying to insert at all times. First we find the spot in which we want to insert the new node, this is just the $find(x)$ operation, and in the case that we should insert between two nodes, we simply take the previous node's sum and add it
+to the new node's sum value and iterate through the rest of the nodes in the skip list and update the sums accordingly. This entire operation is $O(clog(n))$ where $c$ represents how many nodes from the current node to the end we need to update the sum values of.
+\\ Once all of the insertions are done, to find the $avg(x_1, x_2)$,  we simply do: \\$\frac{find(x_2).get(sum) - find(x_1).get(sum)}{find(x_2).get(v) - find(x_1).get(v) + 1}$
+\\ Every operation here is a $O(log(n))$ operation, therefore total runtime of this skiplist modification would be $O(logn)$ for all of the operations. }
 
 
 \i
@@ -338,8 +344,15 @@ So for example, the perfect SkipList discussed in class uses the value $d=2$. Th
 \begin{enumerate}
 
 \i What exactly is the worst case running time of {\tt find}$(x)$, as a function of both $d$ and $n$ ?
+\\\ans{In a perfect skiplist where we control which {\bf d'th} key is promoted, the height should be capped at and never exceed $log_dn$.
+\\ This means that the worst case is we have to find an element that is bigger than all elements in the list, but isn't in the list. This is the worst case possible because it would
+\\ require the traversal of every level of the skiplist, therefore, this runtime is just $O(log_dn)$ }
 
 \i   Which  value(s) of $d$ will do you think would lead to  good performances, and which are poor choices? Why?
+\\\ans{Smaller values of $d > 1$ will lead to better performances because the smaller the value is, the more levels that will be created in the skip list, and the more levels there are,
+the more $log(n)$ performance we get because we can always skip between even more elements. Bigger values would theoretically be better if we were doing a lot of searches
+on the end points of the list, but if we are talking in a general sense, bigger values would be bad because there would be less levels theoretically, and if we do a search for a value that is
+in the middle of the list, that would be costly as we would get something closer to $0(n)$ performance. With a skiplist, we want to go down a level as little often as possible, and stay as high as we can ideally, and as $d$ increases, so does the chance of having to go down a level to find what we are looking for since there are less nodes on the higher levels than the lower ones.}
 
 
 \end{enumerate}
@@ -350,6 +363,8 @@ So for example, the perfect SkipList discussed in class uses the value $d=2$. Th
 Assume that we re-create a SkipList by inserting the same keys, in the same order, but this time this probability $p$ is $0.01$.  (if a key $x$ appears in level $i$, the probability that it also appears in level $i+1$ is $0.01$.    ) Will the expected time to perform
 {\sl find$(x)$} operation increase or decrease, compared to the expected time for the same operation in the original SkipList ${\cal L}$ ?
 
+\ans{The expected time to perform the find($x$) operation would increase because since the chance of a node in the skiplist being promoted has decreased from $\frac{50}{100}$ to $\frac{1}{100}$, so did the chance of a new level in the skiplist being created. And explained in 6A above, the less levels we have, the slower the find($x$) operation on the skiplist is 
+going to be. This means we would be getting closer to $O(n)$ performance from $O(logn)$. }
 
 
 \end{enumerate}
