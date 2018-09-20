@@ -286,6 +286,10 @@ perform, yielding a total of $O(n log n)$ time to perform all insertions.}
     $$\sum_{1\leq i,j\leq n} Y_{ij}.$$
 
     For example if $j$ is the first key that was inserted, then it is in the root of $T$ and it is compared to every other key inserted afterward.
+\\\ans{Using the fact that the keys are inserted in an already sorted order, we would then know for certain that before every new insertion, we would hit every node currently in the
+binary search tree before inserting a new node, therefore every new node is compared to every other node smaller than it. This also means that each new key is always inserted as the right node of the previous key.
+\\ We can think of the above summation as everytime ANY key $i$ is compared to any other key $j$, then $Y_ij = 1$, and since every key will be compared to each other by the property of the insertion order stated above, then we can say that the work to construct the tree is proportional to the summation since we can guarantee that every single key is compared to every other key before it and every other key after it.
+\\ This means that we can guarantee the claim that the amount of work required to construct the tree is = $O(number of comparisons)$ or $\theta(Y_ij)$}
 
     \end{enumerate}
    \i Next assume that the keys are inserted in a random order, where each permutation is equally likely.
@@ -417,7 +421,8 @@ The keys are known in advance, and are sorted. The height of the Skiplist is $\l
 
 The SkipList should be designed such that $$\max_{k_i\in S} T(k_i) $$ is as small as possible, where $T(k_i)$ is defined as the time for searching $k_i$, where the search is starting, as usual in the upper leftmost element.
 
-
+\ans{Since we are given a maximum height for the skiplist, we can use this fact to create something closer to a perfect skiplist to minimize the maximum search time for an element.
+This means that we can $bubble up$ every $2$ elements in the skiplist to end up with exactly($+ or -1$) half of all of the elements on the second level of the list, and a quarter of the elements on the 3rd level. Since we know the height and we can force bubble up, this property will hold strongly and the elements that get bubbled up will be evenly spaced out, therefore yielding a hard $O(logn)$ maximum search time for the skiplist with any $n$.}
 
 
 
