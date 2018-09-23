@@ -288,15 +288,17 @@ perform, yielding a total of $O(n log n)$ time to perform all insertions.}
     For example if $j$ is the first key that was inserted, then it is in the root of $T$ and it is compared to every other key inserted afterward.
 \\\ans{Using the fact that the keys are inserted in an already sorted order, we would then know for certain that before every new insertion, we would hit every node currently in the
 binary search tree before inserting a new node, therefore every new node is compared to every other node smaller than it. This also means that each new key is always inserted as the right node of the previous key.
-\\ We can think of the above summation as everytime ANY key $i$ is compared to any other key $j$, then $Y_ij = 1$, and since every key will be compared to each other by the property of the insertion order stated above, then we can say that the work to construct the tree is proportional to the summation since we can guarantee that every single key is compared to every other key before it and every other key after it.
-\\ This means that we can guarantee the claim that the amount of work required to construct the tree is = $O(number of comparisons)$ or $\theta(Y_ij)$}
+\\ We can think of the above summation as everytime ANY key $i$ is compared to any other key $j$, then $Y_{ij} = 1$, and since every key will be compared to each other by the property of the insertion order stated above, then we can say that the work to construct the tree is proportional to the summation since we can guarantee that every single key is compared to every other key before it and every other key after it.
+\\ This means that we can guarantee the claim that the amount of work required to construct the tree is = $O(number of comparisons)$ or $\theta(Y_{ij})$}
 
     \end{enumerate}
    \i Next assume that the keys are inserted in a random order, where each permutation is equally likely.
     \begin{enumerate}
 
     \i  What is the expected time $$E\left(\sum_{1\leq i,j\leq n}Y_{ij}\right) ? $$
+\\\ans{Using the logic from the previous answer, we only change that the expected chance that key $i$ is compared to key $j$ is halfed for every new level of the tree that we move to from the root, that is, the odds of $i$ and $j$ being in the same subtree assuming a random binary search tree permutation is $O(logn)$.}
     \i Prove  that the expected distance of a key $j$ from the root is $O(\log n)$
+\\\ans{A randomly built binary search tree has expected height $O(logn)$, meaning that $n$ items were inserted in a random order and therefore the search time for an item $j$ is $O(h)$ where $h$ is the height of the tree, and since the expected height of the tree is $O(logn)$ for a random permutation of the $n$ inputs, the maximum expected distance of $j$ from the root is $O(logn)$.}
     \i Prove that for large enough {\bf  constant}  $c$, and large enough value of $n$, the probability that $h(T)\leq c\log_2n $ is very close to 1.
     You could pick what is $c$ and how to formalize 'close to 1'
 
@@ -322,6 +324,7 @@ binary search tree before inserting a new node, therefore every new node is comp
 \\ P2 = ($M_1$, \textcolor{red}{W1}), ($M_2$, \textcolor{red}{W2}), ($M_3$, \textcolor{red}{W3})}
 
  \i Suggest an $O(n^2)$-time algorithm that determines if, given the preference lists of all the men and women, there exists more than one stable matching.
+\\\ans{We can run the stable-marriage algorithm defined in lecture many times with all of the different orders of males and if the algoritm suceeds more than once, then we know there exists more than one stable matching.}
 
   \i Suggest a modification of the SkipList structure, such that in addition to the operations
  { \tt insert$(x)$, find$(x)$ } and {\tt delete$(x)$}, you could also answer the operation {\tt $avg(x_1, x_2)$ } which reports the average of all keys stores in the skip list whose value is $\geq x_1$ but $\leq x_2$.
@@ -334,7 +337,7 @@ Hint: Start by  storing  at each node $v$ of the SL another field, called {\sl s
 before we insert any node, we check if the current node's next pointer is greater than the node we want to insert, if it is, then we increment its $v$ count by 1, and if not, we go right
 if possible and down if not. Once a node is inserted, if it is to be bubbled up to the next level up, then we simply check the previous node on the next level up and its next node, then subtract 1 from the previous one's v and add that to the current one's v, this is also a $O(1)$ operation.
 \\ We also need to add a $sum$ value to each node after insertion to keep track of the sum of every number less than the node we are trying to insert at all times. First we find the spot in which we want to insert the new node, this is just the $find(x)$ operation, and in the case that we should insert between two nodes, we simply take the previous node's sum and add it
-to the new node's sum value and iterate through the rest of the nodes in the skip list and update the sums accordingly. This entire operation is $O(clog(n))$ where $c$ represents how many nodes from the current node to the end we need to update the sum values of.
+to the new node's sum value and iterate through the rest of the nodes in the skip list and update the sums accordingly. If we were deleting instead, then at this step we would subtract the value of the node to delete from the rest of the nodes in the skiplist after it, this still keeps $delete(x)$ an $O(logn)$ operation. This entire operation is $O(clog(n))$ where $c$ represents how many nodes from the current node to the end we need to update the sum values of.
 \\ Once all of the insertions are done, to find the $avg(x_1, x_2)$,  we simply do: \\$\frac{find(x_2).get(sum) - find(x_1).get(sum)}{find(x_2).get(v) - find(x_1).get(v) + 1}$
 \\ Every operation here is a $O(log(n))$ operation, therefore total runtime of this skiplist modification would be $O(logn)$ for all of the operations. }
 
@@ -431,6 +434,7 @@ This means that we can $bubble up$ every $2$ elements in the skiplist to end up 
 
 
 You could {\bf not } assume that the keys of $X$ are equally spaced in $L$. Yet understanding this special case could shed some intuition.
+\\\ans{For this one we can search for the largest key in $X$ first, that way when we search for other keys smaller than this key in $L$, we know to never go past that previous largest most recent key we just searched for, thereby reducing the search time by $m$, the number of keys in $X$.}
 
 \end{enumerate}
 
