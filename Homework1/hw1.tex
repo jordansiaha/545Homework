@@ -324,7 +324,7 @@ binary search tree before inserting a new node, therefore every new node is comp
 \\ P2 = ($M_1$, \textcolor{red}{W1}), ($M_2$, \textcolor{red}{W2}), ($M_3$, \textcolor{red}{W3})}
 
  \i Suggest an $O(n^2)$-time algorithm that determines if, given the preference lists of all the men and women, there exists more than one stable matching.
-\\\ans{We can run the stable-marriage algorithm defined in lecture many times with all of the different orders of males and if the algoritm suceeds more than once, then we know there exists more than one stable matching.}
+\\\ans{We can take the TMA studied in class and we know that it is male optimal and female pessimal if the males are the ones who propose. We also know from the TMA studied in class that it will always yield one stable pairing by the end of the algorithm given the preference lists. This takes $O(n^2)$. Now if we re-run the algorithm, but this time have the females propose first so that it is female optimal and male pessimal, then we know for sure that if the male's pessimal femal is different than his optimal female, then we have found more than one stable match in $O(n^2)$, for a total of $2 * O(n^2)$, which is basically $O(n^2)$.}
 
   \i Suggest a modification of the SkipList structure, such that in addition to the operations
  { \tt insert$(x)$, find$(x)$ } and {\tt delete$(x)$}, you could also answer the operation {\tt $avg(x_1, x_2)$ } which reports the average of all keys stores in the skip list whose value is $\geq x_1$ but $\leq x_2$.
