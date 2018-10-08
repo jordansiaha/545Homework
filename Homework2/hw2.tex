@@ -1,0 +1,288 @@
+%new commen
+\documentclass[11pt,epic,leqno,eepic,psfig,]{article}
+%\usepackage{soda-good}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}
+%\usepackage{epsfig}
+%\usepackage{psfig}
+\usepackage{subfigure}
+%\usepackage{url}
+%\usepackage{picins}
+\usepackage{color}
+\usepackage{algo}
+
+ \usepackage[dvipsnames]{xcolor}
+
+
+ \usepackage[bindingoffset=0.2in,%
+            left=1in,right=1in,top=1in,%bottom=4in,%
+            footskip=.45in]{geometry}
+
+
+
+\newcommand{\rbox}{\begin{flushright}
+        \vspace{-8mm}
+        \qed
+        \vspace{-1mm}
+        \end{flushright}
+}
+
+%%%%%%%%%% Change \ans to using \newenvironment answer %%%%%%%%%%
+\def\NULL{\color{brown}\mbox{\sl NULL}}
+\def\AND{{\color{brown}\mbox{\bf AND}}}
+\def\OR{{\color{brown}\mbox{\bf OR}}}
+\def\while{{\color{brown}\mbox{\bf while}}}
+\def\iff{{\color{brown}\mbox{\textbf{If}}}}
+\def\for{{\color{brown}\mbox{\textbf{for}}}}
+\def\return{{\color{brown}\mbox{\textbf{return}}}}
+
+% \newenvironment{ans}{\color{brown}
+%   \slshape
+%   \vspace{1pt}
+%   \textbf{Answer:}
+%   \vspace{3pt}
+%   \newline
+% }
+% {
+%   \vspace{3pt}
+%   \normalfont\color{red}
+% }
+
+
+\newcommand{\ans}[1]{{\color{brown}{\bf\Large Answer:} \sl  #1 \color{black}}}
+
+
+
+\newcommand{\commentout}[1]{{}}
+\newcommand{\ceil}[1]{\left \lceil #1 \right\rceil}
+
+%%%%%%%%%%%% Comment these two if this isn't the solution %%%%%%%%%%%%%%%%%%%
+%\newcommand{\ans}[1]{{ {\Large Answer} {#1}  }}
+
+
+
+
+
+\newcommand{\isSol}[2]{#2}      % Display 
+\newcommand{\df}[1]{
+  \vspace{-5pt}#1\vspace{-15pt}
+}
+
+
+\renewcommand{\i}{\item}
+
+
+\isSol{\pagesytle{empty}}{\pagestyle{plain}}
+\newcommand{\figlab}[1]{\label{fig:#1}}
+\newcommand{\figref}[1]{Figure \ref{fig:#1}}
+\def\marrow{{\marginpar[\hfill$\longrightarrow$]{$\longleftarrow$}}}
+   \def\alon#1{{\sc Alon says: }{\marrow\sf #1}}
+\def\eps{\varepsilon}
+\def\B{{\cal B}}
+\def\T{{\cal T}}
+\def\D{{\cal D}}
+\def\Cov{\mbox{\sl Cov}}
+\def\bt{\beta}
+\def\al{\alpha}
+\newcommand{\comm}[1]
+{\marginpar{$\longleftarrow$}$\,\mbox{}^{\rm com}${\sf #1}$\mbox{}_{\rm ment}\,$}
+
+\newcommand{\Fr}{Fr\'{e}chet\ }
+\newcommand{\Frd}{Fr\'{e}chet distance\ }
+\newcommand{\f}{\ensuremath{d_F}}
+\newcommand{\wf}{\ensuremath{d_{\tilde{F}}}}
+\newenvironment{proofsketch}{{\bf Proof Sketch:}}{{\rbox}}
+\newtheorem{prop}[section]{Proposition}
+\newtheorem{Def}[section]{Definition}
+%\newtheorem{claim}[section]{Claim}
+
+
+%\topmargin 3mm \textwidth 6.4 in \oddsidemargin +0.19in \evensidemargin +0.19in
+%\textheight 8.5in \textwidth 6.0 in \columnsep .33in \columnseprule 0pt
+\parskip=0.7mm
+\headsep 3mm
+
+
+
+\newcommand{\euclidean}{{\Bbb E}}
+\newcommand{\reals}{{\Bbb R}}
+\newcommand{\sphere}{{\Bbb S}}
+\newcommand{\integers}{{\Bbb Z}}
+\newcommand{\naturals}{{\Bbb N}}
+\newcommand{\complex}{{\Bbb C}}
+\newcommand{\rationals}{{\Bbb Q}}
+\newcommand{\seg}[1]{\overline{#1}}
+\def\TP{{\sl TP}\ }
+\def\S{{\cal S}}
+\def\maxs{{\sl max}(\sum}
+\def\maxs{{\sl max\_}\sum}
+%\def\sum{\mbox{\sl sum}}
+\def\F{{\cal F}}
+\def\epsilon{\varepsilon}
+\def\Pos{{\sl Pos}}
+\def\Neg{{\sl Neg}}
+\long\gdef\boxit#1{\vspace{5mm}\begingroup\vbox{\hrule\hbox{\vrule\kern3pt
+\vbox{\kern4pt#1\kern3pt}\kern3pt\vrule}\hrule}\endgroup}
+\newcommand{\qed}{\mbox{}\hspace*{\fill}\nolinebreak
+ \mbox{$\rule{0.7em}{0.7em}$}}
+
+
+ %\newsymbol\subsetneqq 232A
+ %\newsymbol\nsubseteq 232A
+\newcommand{\comment}[1]{}
+\newcommand{\ToAppear}[1]{\raisebox{15mm}[10pt][0mm]{\makebox[0mm]{\makebox[\textwidth][r]{\emph{#1}}}}}
+
+
+\title{ CSc545 - fall 2018 - Homework \#2. \\
+ Due:  Oct   14    2018 }
+
+\vspace{-10mm}
+
+\begin{document}
+\maketitle
+
+
+ 
+
+
+
+
+%\isSol{
+\fbox{
+\begin{minipage}{6 in}
+\textbf{Instructions.} 
+\begin{enumerate}
+
+\i Solution may {\bf not} be submitted by students in pairs. 
+
+\i You may submit a pdf of the homework, either printed or hand-written and scanned, as long as it is {\bf easily} readable. 
+  
+\i If your solution is illegible not clearly written, it might not be graded. 
+
+\i Unless otherwise stated, you should prove the correctness of your answer. A correct answer without justification may be worth less.
+
+\i If you have discussed any problems with other students, mention their names clearly on the homework. 
+These discussions are not forbidden and are actually {\bf encouraged}. 
+However, you must 
+write your whole solution yourself. 
+
+\i Unless otherwise specified, all questions have the same weight. 
+
+\i  You may refer to data structures or their properties studied in class without having to repeat details, and may reference theorems we have studied without proof. If your answer requires only modifications to one of the algorithms, it is enough to mention the required modifications, and the effect (if any) on the running time and on other operations that the algorithm performs. 
+
+
+\i  In general, a complete solution should contain the following parts: 
+\begin{enumerate} 
+\i A high level description of the data structures (if needed).  {\sl E.g. We use a binary balanced search tree. 
+Each node contains, a  key and pointers to its children. We augment the tree so each node also contains a field... }
+\i A clear description of the main ideas of the algorithm. You may include pseudocode in your solution, but this may not be necessary if your description is clear.  
+\i Proof of correctness (e.g. show that your algorithm always terminates with the desired output). 
+\i A claim about the running time, and a proof showing this claim.  
+\end{enumerate} 
+
+\end{enumerate} 
+\end{minipage} 
+
+ }
+
+
+
+
+\renewcommand{\i}{\item}
+
+ 
+ \everymath{\color{blue}}
+ 
+
+\def\polylog{{{\sl polylog }}}
+\def\poly{{{\sl poly }}}
+
+
+%Due Time: 2/15/05
+
+%Turnin ID: $cs352\_assg2$
+
+%Turnin files: Qremove.c, ExponentCheck.c, sum.c
+
+\newpage 
+
+
+
+
+
+
+   
+\begin{enumerate}
+
+
+ 
+ \item Explain how you would use hash functions to find if your computer  contains two identical  files  (possibly under different names).   Give a     pseudocode of your solution.    Specify which and how your hash functions are used. Do not use  values provided by the file system (such as MD5). Your algorithm should be as efficient as possible. 
+ 
+\i 
+ Consider a set of files $F=\{f_1\dots f_n\}$. Each with at most 10KB. Different files might have different length. 
+
+\begin{enumerate}
+    \item We treat each file as a key. 
+    Is there a perfect hash function for these  files   {\color{purple}  that would be appropriate to be used with a hash table with size $m=O(n)$.?} 
+    
+    If yes, what is the expected running time for finding this function? Prove your answer. 
+    
+
+    
+    \i What is the expected  running time of your algorithm? 
+    
+    
+    \i Assume $m=n^3$. We pick at random a function $h$ from a universal family. For two files $x, y\in F$ we 
+    define a random variable $c_{xy}(h)$ which is $1$ if $h(x)=h(y)$ and is $0$ if $h(x)\neq h(y)$. What is $E(c_{xy}(h))$?
+\end{enumerate}
+
+
+
+
+% \item
+
+
+
+\i Let $S=\{x_1\dots x_n\}$ be a set of points on the $x$-axis, given sorted in increasing order. Suggest an algorithm that in $O(n)$ time finds a point $c$ that minimizes 
+$$\sum_{x_i\in S} |x_i-c|$$. 
+
+Note that the running time is worst-case. 
+
+
+
+\i Let $S=\{h_1\dots h_n\}$ be a set of halfplanes in 2D, and let $\ell$ be a line.
+Let $c=c_1x+c_2y$ be a cost function (so you are given the parameters $c_1$ and $c_2$).
+Show an algorithm that in $O(n)$ (worst-case) time finds the point on $\ell$ that minimizes the cost function, and is inside all halfplanes. 
+
+This problem refer to in the slides as the {\em 1-dimensional Linear-Programming}, or  {\bf 1DLP}. 
+
+All notations are as appeared in the slides. 
+
+\item You are given a set $B$ of $n$ points in the plane, and a set $R$ of $n$ points in the plane. Each point  is given by  its coordinates.  Suggest an ILP  formalization  for determining if there is a 1-1 matching between them, where each red point is match to a blue point whose distance is at most $1$ unit away.
+
+\i You are given a set $S=\{\ell_1\dots \ell_n\}$ of non-vertical 
+lines in the plane. Suggest an algorithm with expected running time $O(n)$  that finds the shortest vertical line segment that crosses every line of $S$. 
+
+Hint-express this problem as a Linear Programming problem in  in low dimension.
+
+
+\i You are given a set of $R$ of red points an a set $B$ of blue points. Suggest an algorithm that in expected time  $O(n)$ finds whether there is a plane $h$  such that in one of its sides there are only blue points, and on its other side only red ones. 
+
+
+\i Let $G(V,E)$ be a graph (not necessarily bipartite) and assume we are also given for every edge $e_j\in E$ a weight $w(e_j )$ which is a positive real number. We define the {\em max-weight matching} problem as follows: 
+
+Find a subset $F\subseteq E$ such that every vertex of $v$ is on at most one edge of $F$, and in addition $\sum_{e\in F} w(e)$ is as large as possible.  
+ Show an ILP formalization of this problem. 
+
+\i Under the same conditions of the previous questions, 
+find a subset $F\subseteq E$ such that every vertex of $v$ is on {\bf exactly}  one edge of $F$ and in addition $\sum_{e\in F} w(e)$ is as small as possible.
+
+This problem is known as the {\em  min-weight perfect matching}.
+
+\i Show an example of a linear programming problem in the (two dimensional $xy$-plane), that has  solution very close (but not including) the point $(0,0)$, 
+ but the only {\bf integer} solution has $x$-value $\geq 1000.$ Here the cost function is to minimize $x$. That is, find the point $(x,y)$ with the smallest minimum value.  
+
+
+
+\end{enumerate} \end{document}
