@@ -10,7 +10,7 @@
 %\usepackage{url}
 %\usepackage{picins}
 \usepackage{color}
-\usepackage{algo}
+\usepackage{alg}
 
  \usepackage[dvipsnames]{xcolor}
 
@@ -217,7 +217,15 @@ Each node contains, a  key and pointers to its children. We augment the tree so 
 
 
  
- \item Explain how you would use hash functions to find if your computer  contains two identical  files  (possibly under different names).   Give a     pseudocode of your solution.    Specify which and how your hash functions are used. Do not use  values provided by the file system (such as MD5). Your algorithm should be as efficient as possible. 
+ \item Explain how you would use hash functions to find if your computer  contains two identical  files  (possibly under different names).   Give a     pseudocode of your solution.    Specify which and how your hash functions are used. Do not use  values provided by the file system (such as MD5). Your algorithm should be as efficient as possible.
+ 
+ \ans{Firstly, we should make an assumption about the size of each file, that is, we assume that each file is at least of size $X$. Given that, we can use a hash function $H = X(the number of bits) mod number of files$ such that it takes every file and hashes the first $X$ bits of each file. We then have the following code:
+ \\ while: files remaining
+ \\     X = first X bits of file
+ \\     Table[Hash(X)] = file
+ \\     if(collision(Table[Hash(X)])
+ \\          return true
+ The odds of specific bits of 2 files being the same is very highly unlikely, so if 2 files hash to the same spot with the above hash function, then we can say with a high probability that the 2 files are duplicate files.}
  
 \i 
  Consider a set of files $F=\{f_1\dots f_n\}$. Each with at most 10KB. Different files might have different length. 
