@@ -218,14 +218,18 @@ Each node contains, a  key and pointers to its children. We augment the tree so 
 
  
  \item Explain how you would use hash functions to find if your computer  contains two identical  files  (possibly under different names).   Give a     pseudocode of your solution.    Specify which and how your hash functions are used. Do not use  values provided by the file system (such as MD5). Your algorithm should be as efficient as possible.
+ \ans{First, we need to eliminate as many comparisons as possible, meaning, take away from the total amount of pairs of files that would need to be compared to each other. We can do this by iterating through all of our files and hashing them into a hash table using their size, this would make sure that every bucket in the hash table only contains files of that specific size, that way, files from different buckets would never be compared to each other, thus decreasing the number of comparisons from $n^2$, where we compare every file to every other file, to just $mn$, which is the size of the hash table multiplied by the number of files at each spot in the table which add up to $n$.
  
- \ans{Firstly, we should make an assumption about the size of each file, that is, we assume that each file is at least of size $X$. Given that, we can use a hash function $H = X(the number of bits) mod number of files$ such that it takes every file and hashes the first $X$ bits of each file. We then have the following code:
+\\ Now that we have this hash table(let's assume that we are just using chaining to deal with collisions), where each bucket contains files of equal size, we need to go through each bucket that contains more than one file, which could potentially be every bucket, and compare each file.
+\\ The file comparison algorithm would also use a hash table, where for every $2$ files that we are comparing in bucket $B_i$, we compute the first $X$ bits of each file and let's say that this $X$ is just some number that we pick so that we can computer a hash of some portion of each file to avoid having to compare a lot of files bit by bit, so this is sort of an elimination step to filter the files even more. We then use a hash function which will take these $X$ bits of every file in bucket $B_i$ and hash it into a hash table of size $| B_i|$, which is how many files are in that bucket.
+\\ At this point we have $B_n$ hash tables and after computing the hashes for each file in each hash table, every time we get a collision we will compare the corresponding files bit by bit, because by this point the files that collide are probably duplicates, or VERY similar, which is very unlikely, but the point is that by this point, the choices should have hopefully been reduced to $2$ or some small subset of the files at each bucket. We can stop as soon as we confirm that any two of the files are duplicates after the bit by bit comparison, or when we don't find any duplicates.
+\\ We then have the following code:
  \\ while: files remaining
  \\     X = first X bits of file
  \\     Table[Hash(X)] = file
  \\     if(collision(Table[Hash(X)])
  \\          return true
- The odds of specific bits of 2 files being the same is very highly unlikely, so if 2 files hash to the same spot with the above hash function, then we can say with a high probability that the 2 files are duplicate files.}
+ Another decent assumption we could make with knowledge of how files work is that the odds of specific bits of 2 files being the same is very highly unlikely, so if 2 files hash to the same spot with the above hash function, then we can say with a high probability that the 2 files are duplicate files.}
  
 \i 
  Consider a set of files $F=\{f_1\dots f_n\}$. Each with at most 10KB. Different files might have different length. 
@@ -257,6 +261,14 @@ $$\sum_{x_i\in S} |x_i-c|$$.
 
 Note that the running time is worst-case. 
 
+\ans{First, we can imagine that we draw each half plane $h_i$ and compute where each one intersects the $x$ axis. Once we have that, each intersection point would define a half line, then for each point, we categorize them by whether they point to the right or to the left of the point. Once we have those, we need to compute the left-most point, which would be $c$, the point that minimizes our function. Since we were given the set of intersection points in increasing order, we can iterate through them all starting from the left, and for each point, we check if it indicates that it points to the right or to the left, if it points to the right, that point becomes our new $c$, and if it points to the left, every other point in the rest of the set of points points to the left, otherwise, we don't have a solution $c$, it won't exist. Otherwise we just keep going until we find the largest point that points to the right or we reach the smallest point that points to the left if the rest of all points point to the left. We only ever have to check $x$ points in the worst-case, which is when either all points point to the right and we have to iterate from the first point to the last point to find it, or if we encounter a left pointing point, we have to keep on iterating through the set of points to find out if the rest of them point to the left to make sure we have a solution. This makes the algorithm $O(n)$ in the worst-case scenario. Here is some pseudo code representing the algorithm.
+\\ for all p in h
+\\----if p is left-pointing
+\\-------if p + 1 is not left pointing
+\\-----------STOP: no solution
+\\----else if p is right-pointing
+\\-------set $c$ to $p$}
+
 
 
 \i Let $S=\{h_1\dots h_n\}$ be a set of halfplanes in 2D, and let $\ell$ be a line.
@@ -266,6 +278,8 @@ Show an algorithm that in $O(n)$ (worst-case) time finds the point on $\ell$ tha
 This problem refer to in the slides as the {\em 1-dimensional Linear-Programming}, or  {\bf 1DLP}. 
 
 All notations are as appeared in the slides. 
+
+\ans{First, we have to construct the vertices of the feasible region where the $n$ half planes intersect with the line $l$. Then we pick one of these points to start on(could be any of them) and check its neighbors to see if there is another point within all half planes that is better than the one we are currently at, if so, then we set the other point becomes our new optimal point and we repeat, if not, then we can stop. This will be $O(n)$ because we only have to check the intersections between the line $l$ and the $n$ half planes defined in the problem, which limits the amount of checks done by 1DLP.}
 
 \item You are given a set $B$ of $n$ points in the plane, and a set $R$ of $n$ points in the plane. Each point  is given by  its coordinates.  Suggest an ILP  formalization  for determining if there is a 1-1 matching between them, where each red point is match to a blue point whose distance is at most $1$ unit away.
 
